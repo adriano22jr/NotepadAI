@@ -1,0 +1,76 @@
+{% extends "base.html"%}
+{% block content %}
+    <nav class="navbar navbar-expand-sm navbar-dark navbar-fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Notepad-AI</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Other Notebooks
+                        </a>
+                        <ul class = "dropdown-menu overflow-auto" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class = "p-2 text-center">
+        <div class = "d-inline">
+            <button id = "edit-content-button" class = "content-button mt-2" onclick = "edit_content()" onmouseover = "this.style.background = 'lightgray';" onmouseout = "this.style.background = 'white';">Edit note</button>
+            <button id = "confirm-content-button" class = "content-button mt-2" onclick = "save_content()" onmouseover = "this.style.background = 'lightgray';" onmouseout = "this.style.background = 'white';" style = "display: none;">Save</button>
+            <button id = "confirm-content-button" class = "content-button mt-2" onclick = "preview()" onmouseover = "this.style.background = 'lightgray';" onmouseout = "this.style.background = 'white';">Preview</button>
+        </div>
+    </div>
+    <div class = "d-flex p-2" style = "height: 77vh;">
+        <div id = "left-div" class = "d-inline h-100 resizable-div" style = "width: 50%;" contenteditable = "false">
+            prova
+        </div>
+        <div id = "right-div" class = "d-inline h-100 resizable-div" style = "visibility: hidden;">
+            
+        </div>
+    </div>
+
+    <footer class = "d-flex fixed-bottom justify-content-between align-items-center">
+        <div class = "d-flex">
+            <a href="#" class="footer-item px-2">Services</a>
+            <a href="https://github.com/adriano22jr" class="footer-item px-2">Github</a>
+        </div>
+        <a class = "footer-item px-2">© 2024 Notepad-AI, adriano22_</a>
+    </footer>
+{% endblock %}
+{% block script %}
+        <script>
+            function edit_content(){
+                content = document.getElementById("left-div");
+                edit_button = document.getElementById("edit-content-button");
+                save_button = document.getElementById("confirm-content-button");
+
+                edit_button.style.display = "none";
+                save_button.style.display = "inline-block"; 
+                content.contentEditable = "true";
+            }
+
+            function save_content(){
+                content = document.getElementById("left-div");
+                edit_button = document.getElementById("edit-content-button");
+                save_button = document.getElementById("confirm-content-button");
+
+                edit_button.style.display = "inline-block";
+                save_button.style.display = "none"; 
+                content.contentEditable = "false";
+            }
+
+            function preview(){
+                preview_div = document.getElementById("right-div");
+                preview_div.style.visibility = "visible";
+            }
+        </script>
+{% endblock %}
