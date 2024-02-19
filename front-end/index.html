@@ -6,7 +6,7 @@
         <link rel = "stylesheet" href = "css/main.css">
         <title>NotepadAI</title>
     </head>
-    <body>
+    <body onload = "checkLoggedUser();">
         <nav class="navbar navbar-expand-sm navbar-dark navbar-fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.html">Notepad-AI</a>
@@ -14,17 +14,17 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav me-auto logged">
                         <li class="nav-item"><a class="nav-link" href = "#" data-bs-toggle = "modal" data-bs-target = "#openNotebookModal">Open notebook</a></li>
                         <li class="nav-item"><a class="nav-link" href = "#" data-bs-toggle = "modal" data-bs-target = "#createNotebookModal">Create Notebook</a></li>
                     </ul>
                 
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto non-logged">
                         <li class="nav-item"><a class="nav-link" href = "#" data-bs-toggle = "modal" data-bs-target = "#loginModal">Log In</a></li>
                     </ul>
                 
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><a class="nav-link" href="#">Username Utente</a></li>
+                    <ul class="navbar-nav mr-auto logged">
+                        <li id = "username" class="nav-item"><a class="nav-link" href="#"></a></li>
                         <li class="nav-item"><a class="nav-link" href="/.auth/logout">Log Out</a></li>
                     </ul>
                 </div>
@@ -273,6 +273,21 @@
                 if(id === "log-aad") window.location.href = "/.auth/login/aad";
                 else window.location.href = "/.auth/login/github";
             }
+
+            async function checkLoggedUser(){
+                response = await fetch("/.auth/me");
+                if(response == null){
+                    $("logged").css({"visibility": "hidden"});
+                    $("non-logged").css({"visibility": "show"});
+                } else {
+                    $("non-logged").css({"visibility": "hidden"});
+                    payload = await response.json();
+                    user = document.getElementById("username");
+                    user.html = payload.userDetails;
+                    $("logged").css({"visibility": "show"});
+                }
+            }
+
         </script>
     </body>
 </html>
