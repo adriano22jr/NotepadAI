@@ -64,4 +64,4 @@ jobs:
         with:
           app-name: 'notepad-ai'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_26AB49B481604231BE45B6A74AE5AFAF }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_831713D52B6F4DC3A965D632E24CA753 }}
